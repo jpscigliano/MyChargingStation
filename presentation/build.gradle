@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id "androidx.navigation.safeargs.kotlin"
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -31,11 +32,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
 
     implementation project(':base-presentation')
+    implementation project(':base-domain')
 
     implementation project(':domain')
     implementation project(':data')
