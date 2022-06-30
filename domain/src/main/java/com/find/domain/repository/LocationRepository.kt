@@ -11,5 +11,5 @@ interface LocationRepository {
 
     suspend fun saveUserLocation(coordinates: Coordinates)
 
-    suspend fun getLatestUserLocation(): Coordinates
+    suspend fun getLatestUserLocation(): Coordinates?
 }

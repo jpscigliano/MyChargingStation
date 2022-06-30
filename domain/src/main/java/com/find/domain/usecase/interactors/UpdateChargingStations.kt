@@ -16,7 +16,7 @@ class UpdateChargingStations @Inject constructor(
 ) : Interactor<UpdateChargingStations.Params>() {
     override suspend fun execute(params: Params) {
 
-        locationRepository.getLatestUserLocation().let { coordinates ->
+        locationRepository.getLatestUserLocation()?.let { coordinates ->
             withContext(Dispatchers.IO) {
                 chargingStationsRepository.updatePOIClosedToCoordinates(
                     coordinates,
