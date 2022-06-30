@@ -27,4 +27,11 @@ object LocalDataSource {
             call(modelToEntryMapper())
         }
     }
+
+    fun <MODEL_ROOM, MODEL> getFromLocal(
+        call: () -> MODEL_ROOM,
+        entryToModelMapper: (MODEL_ROOM) -> MODEL,
+    ): MODEL {
+        return entryToModelMapper(call())
+    }
 }
