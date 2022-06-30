@@ -26,7 +26,7 @@ class DetailViewModel @Inject constructor(
         DetailViewState(
             isLoading = false,
             id = "${it.id.value}",
-            title = "$ { it.operator.value }",
+            title = it.operator.value,
             address = "${it.address.addressLine.value} - ${it.address.town.value} - ${it.address.state.value} - ${it.address.postCode.value}",
             amountCharges = "${it.amountOfChargingPoints.value}"
 
