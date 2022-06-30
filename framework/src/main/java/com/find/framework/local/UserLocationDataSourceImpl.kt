@@ -5,14 +5,16 @@ import com.find.domain.mapper.Mapper
 import com.find.domain.model.Coordinates
 import com.find.framework.local.dao.UserLocationDao
 import com.find.framework.local.entity.LocationEntry
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UserLocationDataSourceImpl @Inject constructor(
     private val userLocationDao: UserLocationDao,
     private val locationEntryToModelMapper: Mapper<LocationEntry, Coordinates>,
-    private val coordinatesToEntryMapper: Mapper<Coordinates, LocationEntry>
+    private val coordinatesToEntryMapper: Mapper<Coordinates, LocationEntry>,
 ) : LocationDataSource {
 
     override fun observeUserLocation(): Flow<Coordinates> {
@@ -34,10 +36,16 @@ class UserLocationDataSourceImpl @Inject constructor(
         userLocationDao.deleteAll()
     }
 
-    override suspend fun getUserLocation(): Coordinates {
-        return LocalDataSource.getFromLocal(
-            call = { userLocationDao.getUserLocation() },
-            entryToModelMapper = { locationEntryToModelMapper.map(it) })
+    override suspend fun getUserLocation(): Coordinates? {
+        return withContext(Dispatchers.Default) {
+            LocalDataSource.getFromLocal(
+                call = { userLocationDao.getUserLocation() },
+                entryToModelMapper = {
+                    if (it == null) null
+                    else locationEntryToModelMapper.map(it)
+                })
+        }
+
     }
 
 

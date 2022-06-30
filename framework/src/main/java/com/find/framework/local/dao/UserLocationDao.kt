@@ -17,6 +17,6 @@ abstract class UserLocationDao : EntryDao<LocationEntry>() {
     abstract fun deleteAll()
 
     @Query("SELECT  * FROM locationEntry")
-    abstract fun getUserLocation(): LocationEntry
+    abstract suspend fun getUserLocation(): LocationEntry?
 
 }
