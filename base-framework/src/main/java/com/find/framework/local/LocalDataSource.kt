@@ -28,8 +28,8 @@ object LocalDataSource {
         }
     }
 
-    fun <MODEL_ROOM, MODEL> getFromLocal(
-        call: () -> MODEL_ROOM,
+    suspend fun <MODEL_ROOM, MODEL> getFromLocal(
+        call: suspend () -> MODEL_ROOM,
         entryToModelMapper: (MODEL_ROOM) -> MODEL,
     ): MODEL {
         return entryToModelMapper(call())
