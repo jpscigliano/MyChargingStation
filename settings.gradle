@@ -100,3 +100,4 @@ dependencyResolutionManagement {
 rootProject.name = "MyChargingStation"
 include ':app'
 include ':base-domain'
+include ':base-framework'
