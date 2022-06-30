@@ -5,12 +5,98 @@ pluginManagement {
         mavenCentral()
     }
 }
+
+enableFeaturePreview('VERSION_CATALOGS')
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        libs {
+
+            //Kotlin
+            version('kotlinx-core', '1.6.0')
+            alias('kotlin-coroutines').to('org.jetbrains.kotlinx', 'kotlinx-coroutines-core').versionRef('kotlinx-core')
+
+            version('kotlinx-serialization', '1.3.2')
+            alias('kotlin-serialization').to('org.jetbrains.kotlinx', 'kotlinx-serialization-json').versionRef('kotlinx-serialization')
+
+
+            //Android
+            version('core-ktx', '1.8.0')
+            alias('android-ktx').to('androidx.core', 'core-ktx').versionRef('core-ktx')
+
+            version('appcompat', '1.4.2')
+            alias('android-appcompat').to('androidx.appcompat', 'appcompat').versionRef('appcompat')
+
+            version('fragment', '1.4.1')
+            alias('android-fragment').to('androidx.fragment', 'fragment-ktx').versionRef('fragment')
+
+            version('lifecycle', '2.4.0')
+            alias('lifecycle-viewmodel').to('androidx.lifecycle', 'lifecycle-viewmodel-ktx').versionRef('lifecycle')
+            alias('lifecycle-runtime').to('androidx.lifecycle', 'lifecycle-runtime-ktx').versionRef('lifecycle')
+
+
+            //Maps
+            version('maps', '2.3.0')
+            alias('maps-utils').to('com.google.maps.android', 'android-maps-utils').versionRef('maps')
+
+            version('play-maps', '18.0.2')
+            alias('maps-play-services').to('com.google.android.gms', 'play-services-maps').versionRef('play-maps')
+
+
+            //Navigation
+            version('navigation', '2.4.2')
+            alias('navigation-fragment').to('androidx.navigation', 'navigation-fragment').versionRef('navigation')
+            alias('navigation-ui').to('androidx.navigation', 'navigation-ui').versionRef('navigation')
+            alias('navigation-safeargs-gradle-plugin').to('androidx.navigation', 'navigation-safe-args-gradle-plugin').versionRef('navigation')
+            alias('navigation-testing').to('androidx.navigation', 'navigation-testing').versionRef('navigation')
+
+
+            //DI
+            version('hilt', '2.42')
+            alias('hilt-android').to('com.google.dagger', 'hilt-android').versionRef('hilt')
+            alias('hilt-core').to('com.google.dagger', 'hilt-core').versionRef('hilt')
+            alias('hilt-compiler').to('com.google.dagger', 'hilt-compiler').versionRef('hilt')
+            alias('hilt-gradle-plugin').to('com.google.dagger', 'hilt-android-gradle-plugin').versionRef('hilt')
+            alias('hilt-android-testing').to('com.google.dagger', 'hilt-android-testing').versionRef('hilt')
+            alias('hilt-android-compiler').to('com.google.dagger', 'hilt-android-compiler').versionRef('hilt')
+
+            //DI - Worker
+            version('hilt-work', '1.0.0')
+            alias('hilt-work').to('androidx.hilt', 'hilt-work').versionRef('hilt-work')
+            alias('hilt-work-compiler').to('androidx.hilt', 'hilt-compiler').versionRef('hilt-work')
+
+            //WorManager
+            version('work', '2.7.1')
+            alias('android-work-runtime').to('androidx.work', 'work-runtime-ktx').versionRef('work')
+
+
+            //Networking
+            version('retrofit', '2.9.0')
+            alias('retrofit').to('com.squareup.retrofit2', 'retrofit').versionRef('retrofit')
+
+            version('retrofit-serialization-converter', '0.8.0')
+            alias('retrofit-serialization-converter').to('com.jakewharton.retrofit', 'retrofit2-kotlinx-serialization-converter').versionRef('retrofit-serialization-converter')
+
+            //Database
+            version('room', '2.4.2')
+            alias('room-runtime').to('androidx.room', 'room-runtime').versionRef('room')
+            alias('room-compiler').to('androidx.room', 'room-compiler').versionRef('room')
+            alias('room-ktx').to('androidx.room', 'room-ktx').versionRef('room')
+
+
+            version('material', '1.5.0')
+            alias('ui-material').to('com.google.android.material', 'material').versionRef('material')
+
+
+        }
+    }
+
 }
+
 rootProject.name = "MyChargingStation"
 include ':app'
+include ':base-domain'
