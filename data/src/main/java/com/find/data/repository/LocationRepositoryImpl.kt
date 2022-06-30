@@ -17,7 +17,7 @@ internal class LocationRepositoryImpl @Inject constructor(
         locationDataSource.saveLocationCoordinates(coordinates)
     }
 
-    override suspend fun getLatestUserLocation(): Coordinates =
+    override suspend fun getLatestUserLocation(): Coordinates? =
         locationDataSource.getUserLocation()
 
 }

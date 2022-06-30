@@ -7,5 +7,5 @@ interface LocationDataSource {
     fun observeUserLocation(): Flow<Coordinates>
     suspend fun saveLocationCoordinates(location: Coordinates)
     suspend fun deleteLocationCoordinates()
-    suspend fun getUserLocation(): Coordinates
+    suspend fun getUserLocation(): Coordinates?
 }
