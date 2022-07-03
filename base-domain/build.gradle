@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
+    id 'kotlin-kapt'
 }
 
 java {
@@ -8,8 +9,12 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
-dependencies{
+dependencies {
 
     //Kotlin
     implementation libs.kotlin.coroutines
+
+    //Hilt
+    implementation libs.hilt.core
+    kapt libs.hilt.compiler
 }

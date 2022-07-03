@@ -9,14 +9,10 @@ import kotlinx.coroutines.flow.flatMapLatest
 @OptIn(ExperimentalCoroutinesApi::class)
 abstract class ObserverInteractor<PARAMS, T> {
 
-    private val paramState = MutableSharedFlow<PARAMS>(
-        replay = 1,
-        //  extraBufferCapacity = 1,
-        //   onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
+    private val paramState = MutableSharedFlow<PARAMS>(replay = 1)
 
-     val flow: Flow<T> = paramState
-        //.distinctUntilChanged()
+    val flow: Flow<T> = paramState
+        .distinctUntilChanged()
         .flatMapLatest { params ->
             execute(params)
         }
