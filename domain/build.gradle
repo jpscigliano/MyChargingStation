@@ -22,4 +22,9 @@ dependencies {
     implementation libs.hilt.core
     kapt libs.hilt.compiler
 
+    //Test
+    testImplementation test.kotlin
+    testImplementation test.kotlin.coroutines
+    testImplementation test.mockk
+    testImplementation 'app.cash.turbine:turbine:0.8.0'
 }
