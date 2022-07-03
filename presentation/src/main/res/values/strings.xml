@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_msg_invalid_request">Error: Invalid Request.</string>
+    <string name="error_msg_not_authorize">Error: Login and try again</string>
+    <string name="error_msg_location_not_available">Error:  Location not available, please check your GPS</string>
+    <string name="error_msg_no_connectivity">Error: Check your connection and try again.</string>
+    <string name="error_msg_unknown">Error: Upss I do not know whats going on :S</string>
+    <string name="error_msg_taking_to_long">Error: This is taking to long. Do you have Location Enabled?</string>
+
+    <string name="success_msg_update_completed">Update completed successfully</string>
+</resources>

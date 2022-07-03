@@ -2,6 +2,7 @@ package com.find.presentation.mapUI.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.find.domain.AppException
 import com.find.domain.LoadingState
 import com.find.domain.collectExecutionStatus
 import com.find.domain.di.ObserveChargingStationsInteractor
@@ -13,12 +14,16 @@ import com.find.domain.model.DistanceUnit
 import com.find.domain.model.ID
 import com.find.domain.usecase.interactors.UpdateChargingStations
 import com.find.presentation.Event
+import com.find.presentation.R
 import com.find.presentation.TextState
 import com.find.presentation.detailUI.fragment.DetailNavArg
 import com.find.presentation.mapUI.fragment.MapFragmentDirections
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -36,8 +41,9 @@ class MapViewModel @Inject constructor(
     val event: SharedFlow<Event> = _Event
 
     init {
+        viewModelScope.launch { updateUserLocation(Unit).collect() }
         viewModelScope.launch { syncPOI() }
-        viewModelScope.launch(Dispatchers.IO) { updateUserLocation(Unit).collect() }
+
     }
 
     val viewState: StateFlow<MapViewState> = combine(
@@ -83,6 +89,7 @@ class MapViewModel @Inject constructor(
 
     var syncJob: Job? = null
     private suspend fun syncPOI() {
+        delay(50)
         syncJob = viewModelScope.launch {
             while (true) {
                 updateChargingStations(
@@ -98,10 +105,20 @@ class MapViewModel @Inject constructor(
                     },
                     onError = {
                         println("APP - ERROR")
-                        _Event.emit(Event.ShowMessage(TextState.StringText(it.message ?: "")))
+                        val message = when (it) {
+                            is AppException.NoInternetError -> R.string.error_msg_no_connectivity
+                            is AppException.LocationNotAvailable -> R.string.error_msg_location_not_available
+                            is AppException.TimeOut -> R.string.error_msg_taking_to_long
+                            is AppException.ApiError.InvalidRequest -> R.string.error_msg_invalid_request
+                            is AppException.ApiError.NotAuthorize -> R.string.error_msg_not_authorize
+                            else -> R.string.error_msg_unknown
+
+                        }
+                        _Event.emit(Event.ShowMessage(TextState.ResourceText(message)))
 
                     }
                 )
+                println("APP - Delay 30'")
                 delay(TimeUnit.SECONDS.toMillis(30))
             }
         }

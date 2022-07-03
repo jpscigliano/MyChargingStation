@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast.LENGTH_LONG
-import android.widget.Toast.makeText
 import androidx.core.view.isVisible
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.viewModels
@@ -13,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.find.presentation.*
 import com.find.presentation.databinding.FragmentMapBinding
+import com.find.presentation.extensions.showToast
 import com.find.presentation.mapUI.viewModel.MapViewModel
 import com.find.presentation.mapUI.viewModel.MapViewState
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -71,17 +70,11 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnM
                 is Event.NavigateTo ->
                     findNavController().navigate(event.destination)
                 is Event.ShowMessage ->
-                    makeText(
-                        requireContext(),
-                        "Error: ${event.textState.getStringText(requireContext())}",
-                        LENGTH_LONG
-                    ).show()
+                    requireContext().showToast(
+                        event.textState.getStringText(requireContext())
+                    )
                 is Event.Success ->
-                    makeText(
-                        requireContext(),
-                        "Update completed successfully",
-                        LENGTH_LONG
-                    ).show()
+                    requireContext().showToast(R.string.success_msg_update_completed)
 
             }
         }
@@ -92,7 +85,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnM
         markers: List<MapViewState.Marker>,
         clusterManager: ClusterManager<MarkerInfo>?
     ): List<MarkerInfo> {
-        val mappedMarkers = markers.mapNotNull {
+        val mappedMarkers = markers.map {
             MarkerInfo(
                 id = it.id,
                 titleText = it.title,
