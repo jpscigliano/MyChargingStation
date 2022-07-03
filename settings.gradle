@@ -93,6 +93,22 @@ dependencyResolutionManagement {
 
 
         }
+        test {
+
+            //Kotlin
+            version('kotlin', '')
+            alias('kotlin').to('org.jetbrains.kotlin', 'kotlin-test').versionRef('kotlin')
+
+            //Coroutines
+            version('kotlin-coroutines', '1.6.3')
+            alias('kotlin-coroutines').to('org.jetbrains.kotlinx', 'kotlinx-coroutines-test').versionRef('kotlin-coroutines')
+
+
+            //MOCKK
+            version('mockk', '1.12.4')
+            alias('mockk').to('io.mockk', 'mockk').versionRef('mockk')
+
+        }
     }
 
 }
