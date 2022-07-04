@@ -9,9 +9,8 @@ import com.find.domain.usecase.observers.ObserveChargingStations
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -27,15 +26,16 @@ class ObserveChargingStationsTest {
     )
 
     @BeforeTest
-    fun setup(){
-        coEvery { chargingRepository.observeChargingStations() } returns SampleData.provideFlowOfChargingStation()
+    fun setup() {
+        coEvery { chargingRepository.observeChargingStations() } returns flow { emit(SampleData.provideListOfChargingStation()) }
+
     }
 
     @Test
     fun WHEN_ObserveChargingStationsInteractorIsObserve_THEN_ListChargingStationsIsCollected() =
         runTest {
             val chargingStationList: List<ChargingStation> = useCase(Unit).first()
-            assertEquals(chargingStationList, SampleData.provideFlowOfChargingStation().first())
+            assertEquals(chargingStationList, SampleData.provideListOfChargingStation())
         }
 
 

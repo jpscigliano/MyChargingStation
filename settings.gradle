@@ -108,6 +108,9 @@ dependencyResolutionManagement {
             version('mockk', '1.12.4')
             alias('mockk').to('io.mockk', 'mockk').versionRef('mockk')
 
+            version('turbine', '0.8.0')
+            alias('turbine').to('app.cash.turbine', 'turbine').versionRef('turbine')
+
         }
     }
 

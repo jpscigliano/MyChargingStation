@@ -22,4 +22,14 @@ dependencies {
     //Hilt
     implementation libs.hilt.core
     kapt libs.hilt.compiler
+
+    //Test
+    testImplementation test.kotlin
+    testImplementation test.kotlin.coroutines
+    testImplementation test.mockk
+    testImplementation test.turbine
+
+
+    testImplementation project(path: ':domain', configuration: 'tests')
+
 }

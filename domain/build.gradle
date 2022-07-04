@@ -9,6 +9,18 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
+configurations {
+    tests.extendsFrom(testImplementation)
+}
+
+task jarTest(type: Jar) {
+    from sourceSets.test.output
+    archiveClassifier.set('tests')
+}
+artifacts {
+    tests jarTest
+}
+
 dependencies {
 
     implementation project(":base-domain")
@@ -26,5 +38,5 @@ dependencies {
     testImplementation test.kotlin
     testImplementation test.kotlin.coroutines
     testImplementation test.mockk
-    testImplementation 'app.cash.turbine:turbine:0.8.0'
+    testImplementation test.turbine
 }

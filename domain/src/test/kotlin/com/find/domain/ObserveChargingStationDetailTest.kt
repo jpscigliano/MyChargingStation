@@ -12,6 +12,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -26,7 +27,11 @@ class ObserveChargingStationDetailTest {
 
     @BeforeTest
     fun setup() {
-        coEvery { chargingRepository.observerPOI(SampleData.provideChargingStationID()) } returns SampleData.provideFlowChargingStationForID()
+        coEvery { chargingRepository.observerPOI(SampleData.provideChargingStationID()) } returns flow {
+            emit(
+                SampleData.provideChargingStationForID()
+            )
+        }
     }
 
     @Test
@@ -34,7 +39,7 @@ class ObserveChargingStationDetailTest {
         runTest {
             val chargingStation: ChargingStation =
                 useCase(SampleData.provideChargingStationID()).first()
-            assertEquals(chargingStation, SampleData.provideFlowChargingStationForID().first())
+            assertEquals(chargingStation, SampleData.provideChargingStationForID())
         }
 
     @Test
