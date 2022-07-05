@@ -52,7 +52,6 @@ class MapViewModel @Inject constructor(
         observeUserLocationInteractor(Unit),
         _Event
     ) { loading, poiList, userLocation, event ->
-        println("APP - Loading :$loading  User :${userLocation}  Event :$event")
         MapViewState(
             isLoading = loading,
             showRefreshButton = event !is Event.Success && loading.not(),
@@ -100,11 +99,9 @@ class MapViewModel @Inject constructor(
                 ).collectExecutionStatus(
                     loader = updatePoiLoadingState,
                     onSuccess = {
-                        println("APP - SUCCESS")
                         _Event.emit(Event.Success)
                     },
                     onError = {
-                        println("APP - ERROR")
                         val message = when (it) {
                             is AppException.NoInternetError -> R.string.error_msg_no_connectivity
                             is AppException.LocationNotAvailable -> R.string.error_msg_location_not_available
@@ -118,7 +115,6 @@ class MapViewModel @Inject constructor(
 
                     }
                 )
-                println("APP - Delay 30'")
                 delay(TimeUnit.SECONDS.toMillis(30))
             }
         }
