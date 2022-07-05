@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
-internal class ChargingStationRepositoryImpl @Inject constructor(
+ class ChargingStationRepositoryImpl @Inject constructor(
     private val localDataSource: LocalChargingStationDataSource,
     private val remoteDataSource: RemoteChargingStationDataSource
 ) : ChargingStationRepository {

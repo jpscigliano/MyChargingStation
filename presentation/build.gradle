@@ -65,9 +65,20 @@ dependencies {
     implementation libs.maps.utils
     implementation libs.maps.play.services
 
-
     // Hilt Library
     implementation libs.hilt.android
+
     kapt libs.hilt.compiler
+
+    //Test
+    testImplementation test.kotlin.junit
+    testImplementation test.kotlin.coroutines
+    testImplementation test.mockk
+    testImplementation test.turbine
+    testImplementation project(path: ':domain', configuration: 'tests')
+
+//    testImplementation "junit:junit:4.13.2"
+    implementation 'androidx.test.ext:junit-ktx:1.1.3'
+
 
 }

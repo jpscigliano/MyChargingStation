@@ -98,11 +98,11 @@ dependencyResolutionManagement {
             //Kotlin
             version('kotlin', '')
             alias('kotlin').to('org.jetbrains.kotlin', 'kotlin-test').versionRef('kotlin')
+            alias('kotlin-junit').to('org.jetbrains.kotlin', 'kotlin-test-junit').versionRef('kotlin')
 
             //Coroutines
             version('kotlin-coroutines', '1.6.3')
             alias('kotlin-coroutines').to('org.jetbrains.kotlinx', 'kotlinx-coroutines-test').versionRef('kotlin-coroutines')
-
 
             //MOCKK
             version('mockk', '1.12.4')
@@ -110,6 +110,9 @@ dependencyResolutionManagement {
 
             version('turbine', '0.8.0')
             alias('turbine').to('app.cash.turbine', 'turbine').versionRef('turbine')
+
+            version('hilt', '2.42')
+            alias('hilt-testing').to('com.google.dagger', 'hilt-android-testing').versionRef('hilt')
 
         }
     }

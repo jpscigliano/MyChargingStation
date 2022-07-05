@@ -6,7 +6,8 @@ import com.find.domain.repository.LocationRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-internal class LocationRepositoryImpl @Inject constructor(
+
+class LocationRepositoryImpl @Inject constructor(
     private val locationDataSource: LocationDataSource
 ) : LocationRepository {
     override fun observerUserLocation(): Flow<Coordinates> =
