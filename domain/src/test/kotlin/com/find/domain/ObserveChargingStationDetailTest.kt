@@ -35,7 +35,7 @@ class ObserveChargingStationDetailTest {
     }
 
     @Test
-    fun GIVEN_ChargingStationID_WHEN_ObserveChargingStationDetailInteractorIsObserve_THEN_ChargingStationsIsCollected() =
+    fun `GIVEN a charging station ID WHEN  the ChargingStationDetailInteractor is observe THEN a ChargingStations is Collected`() =
         runTest {
             val chargingStation: ChargingStation =
                 useCase(SampleData.provideChargingStationID()).first()
@@ -43,7 +43,7 @@ class ObserveChargingStationDetailTest {
         }
 
     @Test
-    fun GIVEN_InvalidChargingStationID_WHEN_ObserveChargingStationDetailInteractorIsObserve_THEN_AssertionErrorIsThrow() =
+    fun `GIVEN an invalid ChargingStation ID WHEN ObserveChargingStationDetail is observe THEN  and AssertionError is Throw`() =
         runTest {
             useCase(ID(-1)).test { awaitError() }
 

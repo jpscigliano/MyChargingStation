@@ -35,7 +35,7 @@ class UpdateChargingStationsTest {
     }
 
     @Test
-    fun GIVEN_AnyDistanceInKm_AND_coordinatesAreEmitted_WHEN_UpdatingCharginStationInteractorIsCalled_THEN_InProgressAndSuccessAreEmitted()=
+    fun `GIVEN a distance in Km AND available coordinates WHEN UpdatingCharginStationInteractor ss called THEN InProgress and success are emitted`()=
         runTest {
             coEvery { locationRepository.getLatestUserLocation() } returns SampleData.provideCoordinates()
             val useCaseExecutionStates: List<ExecutionInteractorStatus> = useCase(SampleData.provideNumericDistanceInKm()).toList()

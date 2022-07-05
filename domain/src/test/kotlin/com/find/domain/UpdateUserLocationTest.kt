@@ -26,7 +26,7 @@ class UpdateUserLocationTest {
 
 
     @Test
-    fun GIVEN_AnyCoordinate_WHEN_UpdateUserLocationIsExecuted_THEN_InProgressAndSuccessAreEmitted() =
+    fun `GIVEN a Coordinate WHEN UpdateUserLocation is executed THEN InProgress and Success are emitted`() =
         runTest {
             coEvery { locationRepository.saveUserLocation(any()) } returns Unit
             val useCaseExecutionStates: List<ExecutionInteractorStatus> = useCase(Unit).toList()
@@ -34,7 +34,7 @@ class UpdateUserLocationTest {
         }
 
     @Test
-    fun GIVEN_AnyCoordinate_WHEN_UpdateUserLocationIsExecuted_AND_SaveUserLocationEmitsException_THEN_InProgressAndErrorAreEmitted() =
+    fun `GIVEN a Coordinate WHEN UpdateUserLocation is executed AND SaveUserLocation emits exception THEN InProgress and then Error are emitted`() =
         runTest {
             coEvery { locationRepository.saveUserLocation(any()) } throws AppException.UnknownError()
             val useCaseExecutionStates: List<ExecutionInteractorStatus> = useCase(Unit).toList()

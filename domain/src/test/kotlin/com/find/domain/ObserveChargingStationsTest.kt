@@ -32,7 +32,7 @@ class ObserveChargingStationsTest {
     }
 
     @Test
-    fun WHEN_ObserveChargingStationsInteractorIsObserve_THEN_ListChargingStationsIsCollected() =
+    fun `WHEN ObserveChargingStations is Observe THEN a list ChargingStations is Collected`() =
         runTest {
             val chargingStationList: List<ChargingStation> = useCase(Unit).first()
             assertEquals(chargingStationList, SampleData.provideListOfChargingStation())

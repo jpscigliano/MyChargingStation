@@ -51,8 +51,9 @@ class ChargingStationRepositoryTest {
 
     }
 
+
     @Test
-    fun GIVEN_ListOfChargingStations_WHEN_ObserveChargingStationsIsExecuted_THEN_ListOfChargingStationIsCollected() =
+    fun `WHEN ObserveChargingStations is executed THEN a list of ChargingStation is c ollected`() =
         runTest {
             repository.observeChargingStations().test {
                 assertEquals(awaitItem(), SampleData.provideListOfChargingStation())
@@ -61,7 +62,7 @@ class ChargingStationRepositoryTest {
         }
 
     @Test
-    fun GIVEN_AnyChargingStationID_WHEN_ObservePOIIsExecuted_THEN_ChargingStationIsCollected() =
+    fun `GIVEN an  ID WHEN  observePOI  is called from the repository THEN a charging station is collected`() =
         runTest {
             repository.observerPOI(SampleData.provideChargingStationID()).test {
                 assertEquals(awaitItem(), SampleData.provideChargingStationForID())
@@ -70,7 +71,7 @@ class ChargingStationRepositoryTest {
         }
 
     @Test
-    fun GIVEN_Coordinates_AND_Distance_WHEN_UpdatePOIClosedToCoordinatesIsCalled_THEN_SaveListIndataSourceIsExecuteOnce() =
+    fun `GIVEN coordinates AND a Distance in KM WHEN  UpdatePOIClosedToCoordinates interactor is called THEN  the local datasource saves the item once`() =
         runTest {
             repository.updatePOIClosedToCoordinates(
                 SampleData.provideCoordinates(),
